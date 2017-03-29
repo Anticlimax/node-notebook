@@ -7,25 +7,25 @@ let getPath = (url) => {
   return path.resolve(process.cwd(), 'public', `.${url}`)
 }
 
-let map = {
-  '/':'/index.html',
-  '/about':'/about.html',
-  '/list':'/list.html'
-}
-
 
 let staticFunc = (url) => {
 
-  url = map[url] || url
-  
-  let _path = getPath(url)
-  let body = '';
-  try {
-    body = fs.readFileSync(_path)
-  } catch (error) {
-    body = data = `NOT FOUND${error.stack}`
-  }
-  return body;
+  return new Promise((resolve, reject) => {
+    if(url === '/'){
+      url = '/index.html'
+    }
+
+    let _path = getPath(url)
+    let body = '';
+
+
+      body = fs.readFile(_path, (err, data) => {
+        if(err){
+          reject(`NOT FOUND${err.stack}`)
+        }
+        resolve(data)
+      })
+  })
 }
 
 module.exports = staticFunc

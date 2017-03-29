@@ -41,25 +41,32 @@ nav #navbar {
 }
 
 #navbar li a {
-  position: relative;
   display: inline-block;
-  
+
   color: white;
   font-size: 18px;
   outline: none;
-  transition: all 1s;
 }
 
-#navbar li a:hover::before, #navbar li a:hover::after{
-  position: absolute;
-  transition: all 1s;
+#navbar li a::before, #navbar li a::after {
+  display: inline-block;
+  opacity: 0;
+  transition: all .3s;
 }
 
-#navbar li a:hover::before {
-  content: '\5B';
-  left: -20px;
+#navbar li a::before {
+  margin-right: 10px;
+  content: '{';
+  transform: translateX(20px)
 }
-#navbar li a:hover::after {
-  content: '\5D';
-  right: -20px;
+
+#navbar li a::after {
+  margin-left: 10px;
+  content: '}';
+  transform: translateX(-20px)
+}
+
+#navbar li a:hover::before, #navbar li a:hover::after {
+  opacity: 1;
+  transform: translateX(0px);
 }
